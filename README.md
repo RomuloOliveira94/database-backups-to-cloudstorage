@@ -32,7 +32,7 @@ Replace "containerid" with your container id
 
 ```ini
 docker cp ~/.my.cnf containerid:/root/.my.cnf
-docker exec -it 1d77829b4bea chmod 600 ~/.my.cnf
+docker exec -it containerid chmod 600 ~/.my.cnf
 ```
 
 # Configuring rclone
@@ -79,10 +79,6 @@ mysqldump --single-transaction --skip-lock-tables --quick $DATABASE > $BK_PATH/$
 gzip $BK_PATH/$FILENAME
 
 rclone move $BK_PATH/$FILENAME.gz $RCLONE_STORAGE:$BUCKET/
-
-# Only if you want to delete the files older than 30 days
-
-rclone delete --min-age 30d $RCLONE_STORAGE:$BUCKET/
 ```
 
 With docker:
@@ -97,12 +93,16 @@ CONTAINER=container
 BK_PATH=~/backups
 RCLONE_STORAGE=your_rclone_storage_name
 
-docker exec -it $CONTAINER mysqldump --single-transaction --skip-lock-tables --quick $DATABASE > /home/db-backups/$FILENAME.sql
+docker exec -it $CONTAINER mysqldump --single-transaction --skip-lock-tables --quick $DATABASE > $BK_PATH/$FILENAME.sql
 
 gzip $BK_PATH/$FILENAME
 
 rclone move $BK_PATH/$FILENAME.gz $RCLONE_STORAGE:$BUCKET/
-# Only if you want to delete the files older than 30 days
+```
+
+### Rclone can delete from the bucket too, if you want to delete old data add to the script at the end:
+
+```
 rclone delete --min-age 30d $RCLONE_STORAGE:$BUCKET/
 ```
 
