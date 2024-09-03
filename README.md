@@ -1,4 +1,13 @@
-# Initial server config
+# Automatic backups for MYSQL database on linux
+
+### Tutorial to make a automatic database dump and upload to your cloud storage using rclone.
+
+You can adapt this and use for another database.
+
+[![Icons](https://skillicons.dev/icons?i=linux,ubuntu,debian,docker,cloudflare,aws)](https://skillicons.dev)
+
+
+# Initial server config:
 
 ### creating db-credentials for mysql
 
@@ -35,7 +44,7 @@ docker cp ~/.my.cnf containerid:/root/.my.cnf
 docker exec -it containerid chmod 600 ~/.my.cnf
 ```
 
-# Configuring rclone
+# Configuring rclone:
 
 ### Install rclone
 
@@ -53,7 +62,7 @@ rclone config
 
 After config you can see and edit the config file in **~/.config/rclone/rclone.conf**
 
-# Creating the scripts
+# Creating the scripts:
 
 ### You can see the script files on scripts folder to download, but if you want to copy follow the steps
 
