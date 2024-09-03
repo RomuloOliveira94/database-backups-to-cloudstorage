@@ -68,11 +68,13 @@ nano ~/backups/db-backup.sh
 If not using Docker:
 
 ```
+# !/bin/bash
+
 FILENAME=$(date +%Y-%m-%dT%H:%M:%S).sql
 DATABASE=database_name
 BUCKET=bucket_name
 BK_PATH=~/backups
-RCLONE_STORAGE=R2-STORAGE
+RCLONE_STORAGE=your_rclone_storage_name
 
 mysqldump --single-transaction --skip-lock-tables --quick $DATABASE > $BK_PATH/$FILENAME
 
@@ -93,7 +95,7 @@ CONTAINER=container
 BK_PATH=~/backups
 RCLONE_STORAGE=your_rclone_storage_name
 
-docker exec -it $CONTAINER mysqldump --single-transaction --skip-lock-tables --quick $DATABASE > $BK_PATH/$FILENAME.sql
+docker exec -it $CONTAINER mysqldump --single-transaction --skip-lock-tables --quick $DATABASE > $BK_PATH/$FILENAME
 
 gzip $BK_PATH/$FILENAME
 
